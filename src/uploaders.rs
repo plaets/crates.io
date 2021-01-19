@@ -50,7 +50,7 @@ impl Uploader {
                 let path = Uploader::crate_path(crate_name, version);
                 format!("https://{}/{}", host, path)
             }
-            Uploader::Local => format!("/{}", Uploader::crate_path(crate_name, version)),
+            Uploader::Local => format!("http://localhost:8888/{}", Uploader::crate_path(crate_name, version)),
         }
     }
 
@@ -71,7 +71,7 @@ impl Uploader {
                 let path = Uploader::readme_path(crate_name, version);
                 format!("https://{}/{}", host, path)
             }
-            Uploader::Local => format!("/{}", Uploader::readme_path(crate_name, version)),
+            Uploader::Local => format!("http://localhost:8888/{}", Uploader::readme_path(crate_name, version)),
         }
     }
 

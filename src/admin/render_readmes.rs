@@ -15,6 +15,7 @@ use reqwest::{blocking::Client, header};
 use tar::{self, Archive};
 
 const CACHE_CONTROL_README: &str = "public,max-age=604800";
+const USER_AGENT: &str = "crates-admin";
 
 #[derive(Clap, Debug)]
 #[clap(
@@ -160,7 +161,9 @@ fn get_readme(
         .uploader
         .crate_location(krate_name, &version.num.to_string());
 
-    let response = match client.get(&location).send() {
+    let mut extra_headers = header::HeaderMap::new();
+    extra_headers.insert(header::USER_AGENT, USER_AGENT.parse().unwrap());
+    let response = match client.get(&location).headers(extra_headers).send() {
         Ok(r) => r,
         Err(err) => {
             println!(
