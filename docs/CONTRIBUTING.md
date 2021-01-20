@@ -550,6 +550,14 @@ order to publish to the Dockerized crates.io, run
 cargo publish --index http://localhost:4200/git/index
 ```
 
+You will be required to verify your email address before you can publish any crates.
+After logging in with github, go to <http://localhost:4200/me> and add an email address.
+Next, run `cargo run --bin crates-admin verify-email <your email address>`.
+Note that crates-admin requires a database connection to work.
+If you are using docker-compose, try `docker-compose exec backend bash` before
+running crates-admin. Otherwise, make sure that the `DATABASE_URL` environment
+variable contains the url of the database.
+
 #### Changing code
 
 The `app/` directory is mounted directly into the frontend Docker container,
